@@ -63,13 +63,21 @@ namespace Fungus
         [SerializeField] protected bool hideComponents = true;
 
         [Tooltip("Saves the selected block and commands when saving the scene. Helps avoid version control conflicts if you've only changed the active selection.")]
+        /*/ // SNOWFALL_FUNGUS_MOD
         [SerializeField] protected bool saveSelection = true;
+        /*/
+        [SerializeField] protected bool saveSelection = false;
+        //*/
 
         [Tooltip("Unique identifier for this flowchart in localized string keys. If no id is specified then the name of the Flowchart object will be used.")]
         [SerializeField] protected string localizationId = "";
 
         [Tooltip("Display line numbers in the command list in the Block inspector.")]
+        /*/ // SNOWFALL_FUNGUS_MOD
         [SerializeField] protected bool showLineNumbers = false;
+        /*/
+        [SerializeField] protected bool showLineNumbers = true;
+        //*/
 
         [Tooltip("List of commands to hide in the Add Command menu. Use this to restrict the set of commands available when editing a Flowchart.")]
         [SerializeField] protected List<string> hideCommands = new List<string>();
@@ -572,6 +580,7 @@ namespace Fungus
         /// Sends a message to this Flowchart only.
         /// Any block with a matching MessageReceived event handler will start executing.
         /// </summary>
+        /*/ // SNOWFALL_FUNGUS_MOD
         public virtual void SendFungusMessage(string messageName)
         {
             var eventHandlers = GetComponents<MessageReceived>();
@@ -581,6 +590,18 @@ namespace Fungus
                 eventHandler.OnSendFungusMessage(messageName);
             }
         }
+        /*/
+        public virtual bool SendFungusMessage(string messageName) {
+            bool anyReceived = false;
+            var eventHandlers = GetComponents<MessageReceived>();
+            foreach (var eventHandler in eventHandlers) {
+                bool received = eventHandler.OnSendFungusMessage(messageName);
+                anyReceived = (anyReceived || received);
+            }
+            
+            return anyReceived;
+        }
+        //*/
 
         /// <summary>
         /// Returns a new variable key that is guaranteed not to clash with any existing variable in the list.
@@ -1036,6 +1057,11 @@ namespace Fungus
                 for (int i = 0; i < commands.Length; i++)
                 {
                     var command = commands[i];
+                    /**/ // SNOWFALL_FUNGUS_MOD
+                    if (command == null) {
+                        continue;
+                    }
+                    //*/
                     command.hideFlags = HideFlags.HideInInspector;
                 }
 

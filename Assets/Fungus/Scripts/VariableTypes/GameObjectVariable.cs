@@ -13,7 +13,30 @@ namespace Fungus
     [AddComponentMenu("")]
     [System.Serializable]
     public class GameObjectVariable : VariableBase<GameObject>
+    /*/ // SNOWFALL_FUNGUS_MOD
     {}
+    /*/
+    {
+        /*!
+         * Compare if a value equals the variable's value.
+         */
+        public override bool Compare(CompareOperator compareOperator,
+                                     System.Object value) {
+            var lhs = Value;
+            var rhs = (GameObject)value;
+            
+            switch (compareOperator) {
+                case CompareOperator.Equals: {
+                    return (lhs == rhs);
+                }
+                case CompareOperator.NotEquals:
+                default: {
+                    return (lhs != rhs);
+                }
+            }
+        }
+    }
+    //*/
 
     /// <summary>
     /// Container for a GameObject variable reference or constant value.

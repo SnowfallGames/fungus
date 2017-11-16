@@ -101,12 +101,22 @@ namespace Fungus.EditorUtils
 
             EditorGUILayout.Separator();
 
+            /*/ // SNOWFALL_FUNGUS_MOD
             if (t.ErrorMessage.Length > 0)
             {
                 GUIStyle style = new GUIStyle(GUI.skin.label);
                 style.normal.textColor = new Color(1,0,0);
                 EditorGUILayout.LabelField(new GUIContent("Error: " + t.ErrorMessage), style);
             }
+            /*/
+            string errorMessage = "";
+            if (t.ErrorMessage.Length > 0) {
+                errorMessage = "Error: " + t.ErrorMessage;
+            }
+            GUIStyle style = new GUIStyle(GUI.skin.label);
+            style.normal.textColor = new Color(1,0,0);
+            EditorGUILayout.LabelField(new GUIContent(errorMessage), style);
+            //*/
 
             GUILayout.EndVertical();
 

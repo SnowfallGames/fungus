@@ -8,7 +8,11 @@ namespace Fungus
     /// <summary>
     /// The block will execute when the specified message is received from a Send Message command.
     /// </summary>
+    /*/ // SNOWFALL_FUNGUS_MOD
     [EventHandlerInfo("Scene",
+    /*/
+    [EventHandlerInfo("",
+    //*/
                       "Message Received",
                       "The block will execute when the specified message is received from a Send Message command.")]
     [AddComponentMenu("")]
@@ -23,6 +27,7 @@ namespace Fungus
         /// Called from Flowchart when a message is sent.
         /// </summary>
         /// <param name="message">Message.</param>
+        /*/ // SNOWFALL_FUNGUS_MOD
         public void OnSendFungusMessage(string message)
         {
             if (this.message == message)
@@ -30,6 +35,17 @@ namespace Fungus
                 ExecuteBlock();
             }
         }
+        /*/
+        public virtual bool OnSendFungusMessage(string message) {
+            if (this.message == message) {
+                ExecuteBlock();
+                
+                return true;
+            }
+            
+            return false;
+        }
+        //*/
 
         public override string GetSummary()
         {

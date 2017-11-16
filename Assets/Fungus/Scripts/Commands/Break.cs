@@ -23,8 +23,13 @@ namespace Fungus
             int whileIndentLevel = -1;
             for (int i = CommandIndex - 1; i >=0; --i)
             {
+                /*/ // SNOWFALL_FUNGUS_MOD
                 While whileCommand = ParentBlock.CommandList[i] as While;
                 if (whileCommand != null)
+                /*/
+                var whileCommand = ParentBlock.CommandList[i];
+                if (whileCommand is ILoopCommand)
+                //*/
                 {
                     whileIndex = i;
                     whileIndentLevel = whileCommand.IndentLevel;

@@ -191,6 +191,16 @@ namespace Fungus.EditorUtils
             keyProp.stringValue = flowchart.GetUniqueVariableKey(key, variable);
 
             SerializedProperty defaultProp = variableObject.FindProperty("value");
+            /**/ // SNOWFALL_FUNGUS_MOD
+            if (defaultProp == null) {
+                UnityEngine.Debug.LogError(
+                    variableInfo.VariableType
+                    + " must be [System.Serializable] in order to use it in Fungus"
+                );
+                
+                return;
+            }
+            //*/
             EditorGUI.PropertyField(rects[2], defaultProp, new GUIContent(""));
 
             SerializedProperty scopeProp = variableObject.FindProperty("scope");

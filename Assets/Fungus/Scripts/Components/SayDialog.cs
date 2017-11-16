@@ -90,6 +90,14 @@ namespace Fungus
             return writer;
         }
 
+        /**/ // SNOWFALL_FUNGUS_MOD
+        public virtual Button ContinueButton {
+            get {
+                return continueButton;
+            }
+        }
+        //*/
+
         protected virtual CanvasGroup GetCanvasGroup()
         {
             if (canvasGroup != null)

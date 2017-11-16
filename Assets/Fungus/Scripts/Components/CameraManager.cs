@@ -89,7 +89,11 @@ namespace Fungus
             }
         }
 
+        /*/ // SNOWFALL_FUNGUS_MOD
         protected virtual IEnumerator FadeInternal(float targetAlpha, float fadeDuration, Action fadeAction)
+        /*/
+        public virtual IEnumerator FadeInternal(float targetAlpha, float fadeDuration, Action fadeAction)
+        //*/
         {
             float startAlpha = fadeAlpha;
             float timer = 0;

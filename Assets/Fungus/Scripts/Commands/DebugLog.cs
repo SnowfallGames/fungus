@@ -39,6 +39,14 @@ namespace Fungus
         {
             var flowchart = GetFlowchart();
             string message = flowchart.SubstituteVariables(logMessage.Value);
+            /**/ // SNOWFALL_FUNGUS_MOD
+            message = (
+                message + "\n"
+                + "Flowchart: " + name + "\n"
+                + "Block: " + ParentBlock.BlockName + "\n"
+                + "Index: " + CommandIndex + "\n"
+            );
+            //*/
 
             switch (logType)
             {

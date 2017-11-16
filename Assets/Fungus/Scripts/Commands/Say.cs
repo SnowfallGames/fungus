@@ -55,6 +55,11 @@ namespace Fungus
 
         [Tooltip("Sets the active Say dialog with a reference to a Say Dialog object in the scene. All story text will now display using this Say Dialog.")]
         [SerializeField] protected SayDialog setSayDialog;
+        
+        //*/ // SNOWFALL_FUNGUS_MOD
+        public System.Action sayDialogPress = null;
+        /*/
+        //*/
 
         protected int executionCount;
 
@@ -124,10 +129,30 @@ namespace Fungus
             }
 
             string subbedText = flowchart.SubstituteVariables(displayText);
-
+            
+            
+            /*/ // SNOWFALL_FUNGUS_MOD
             sayDialog.Say(subbedText, !extendPrevious, waitForClick, fadeWhenDone, stopVoiceover, waitForVO, voiceOverClip, delegate {
                 Continue();
             });
+            /*/
+            if (sayDialogPress == null) {
+                 sayDialogPress = delegate {
+                    Continue();
+                };
+            }
+            
+            sayDialog.Say(
+                subbedText,
+                !extendPrevious,
+                waitForClick,
+                fadeWhenDone,
+                stopVoiceover,
+                waitForVO,
+                voiceOverClip,
+                sayDialogPress
+            );
+            //*/
         }
 
         public override string GetSummary()

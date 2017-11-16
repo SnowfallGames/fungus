@@ -26,8 +26,14 @@ namespace Fungus
                 {
                     var command = ParentBlock.CommandList[i];
 
+                    /*/ // SNOWFALL_FUNGUS_MOD
                     if (command.IndentLevel == IndentLevel &&
                         command.GetType() == typeof(While))
+                    /*/
+                    //if ((command.IndentLevel == IndentLevel) && (command is While)) {
+                    if ((command.IndentLevel == IndentLevel)
+                        && (command is ILoopCommand))
+                    //*/
                     {
                         Continue(i);
                         return;

@@ -13,7 +13,35 @@ namespace Fungus
     [AddComponentMenu("")]
     [System.Serializable]
     public class Vector3Variable : VariableBase<Vector3>
+    /*/ // SNOWFALL_FUNGUS_MOD
     {}
+    /*/
+    {
+        /*!
+         * Compare if a value equals the variable's value.
+         */
+        public override bool Compare(CompareOperator compareOperator,
+                                     System.Object value) {
+            var lhs = Value;
+            var rhs = (Vector3)value;
+            
+            UnityEngine.Debug.Log(
+                lhs + "\n"
+                + rhs + "\n"
+            );
+            
+            switch (compareOperator) {
+                case CompareOperator.Equals: {
+                    return (lhs == rhs);
+                }
+                case CompareOperator.NotEquals:
+                default: {
+                    return (lhs != rhs);
+                }
+            }
+        }
+    }
+    //*/
 
     /// <summary>
     /// Container for a Vector3 variable reference or constant value.

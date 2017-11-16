@@ -42,6 +42,12 @@ namespace Fungus
                 }
                 f.StopAllBlocks();
             }
+            
+            /**/ // SNOWFALL_FUNGUS_MOD
+            if (!stopParentFlowchart) {
+                Continue();
+            };
+            //*/
         }
 
         public override bool IsReorderableArray(string propertyName)

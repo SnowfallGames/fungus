@@ -40,6 +40,12 @@ namespace Fungus.EditorUtils
                                          Func<Variable, bool> filter, 
                                          Func<string, int, string[], int> drawer = null)
         {
+            /**/ // SNOWFALL_FUNGUS_MOD
+            if (flowchart == null) {
+                return;
+            }
+            //*/
+            
             List<string> variableKeys = new List<string>();
             List<Variable> variableObjects = new List<Variable>();
             
@@ -51,6 +57,15 @@ namespace Fungus.EditorUtils
             int selectedIndex = 0;
 
             Variable selectedVariable = property.objectReferenceValue as Variable;
+            /**/ // SNOWFALL_FUNGUS_MOD
+            if ((selectedVariable != null)
+                && (selectedVariable.gameObject != flowchart.gameObject)) {
+                
+                UnityEngine.Debug.LogWarning("Variable and flowchart are not the same");
+                
+                return;
+            }
+            //*/
 
             // When there are multiple Flowcharts in a scene with variables, switching
             // between the Flowcharts can cause the wrong variable property
@@ -191,6 +206,15 @@ namespace Fungus.EditorUtils
 
             SerializedProperty referenceProp = property.FindPropertyRelative(propNameBase + "Ref");
             SerializedProperty valueProp = property.FindPropertyRelative(propNameBase + "Val");
+            /**/ // SNOWFALL_FUNGUS_MOD
+            if (referenceProp == null) {
+                referenceProp = property.FindPropertyRelative("reference_");
+            }
+            
+            if (valueProp == null) {
+                valueProp = property.FindPropertyRelative("value_");
+            }
+            //*/
 
             if (referenceProp == null || valueProp == null)
             {
@@ -275,6 +299,11 @@ namespace Fungus.EditorUtils
             propNameBase = Char.ToLowerInvariant(propNameBase[0]) + propNameBase.Substring(1);
 
             SerializedProperty referenceProp = property.FindPropertyRelative(propNameBase + "Ref");
+            /**/ // SNOWFALL_FUNGUS_MOD
+            if (referenceProp == null) {
+                referenceProp = property.FindPropertyRelative("reference_");
+            }
+            //*/
 
             if (referenceProp.objectReferenceValue != null)
             {
@@ -282,6 +311,11 @@ namespace Fungus.EditorUtils
             }
 
             SerializedProperty valueProp = property.FindPropertyRelative(propNameBase + "Val");
+            /**/ // SNOWFALL_FUNGUS_MOD
+            if (valueProp == null) {
+                valueProp = property.FindPropertyRelative("value_");
+            }
+            //*/
             return EditorGUI.GetPropertyHeight(valueProp, label);
         }
     }

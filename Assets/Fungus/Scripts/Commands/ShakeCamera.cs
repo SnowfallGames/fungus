@@ -49,7 +49,11 @@ namespace Fungus
             tweenParams.Add("oncomplete", "OniTweenComplete");
             tweenParams.Add("oncompletetarget", gameObject);
             tweenParams.Add("oncompleteparams", this);
+            /*/ // SNOWFALL_FUNGUS_MOD
             iTween.ShakePosition(Camera.main.gameObject, tweenParams);
+            /*/
+            iTween.ShakePosition(Camera.main.transform.parent.gameObject, tweenParams);
+            //*/
             
             if (!waitUntilFinished)
             {

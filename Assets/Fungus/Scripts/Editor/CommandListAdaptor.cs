@@ -195,10 +195,12 @@ namespace Fungus.EditorUtils
             {
                 summary = "<b> " + summary + "</b>";
             }
+            /*/ // SNOWFALL_FUNGUS_MOD
             else
             {
                 summary = "<i>" + summary + "</i>";
             }
+            //*/
 
             bool commandIsSelected = false;
             foreach (Command selectedCommand in flowchart.SelectedCommands)
@@ -437,8 +439,15 @@ namespace Fungus.EditorUtils
             }
             
             GUIStyle summaryStyle = new GUIStyle();
+            /*/ // SNOWFALL_FUNGUS_MOD
             summaryStyle.fontSize = 10; 
             summaryStyle.padding.top += 5;
+            /*/
+            summaryStyle.font = Resources.Load("Fonts/Inconsolata-Regular") as Font;
+            //summaryStyle.font = Resources.Load("Fonts/UbuntuMono-R") as Font;
+            summaryStyle.fontSize = 12;
+            summaryStyle.padding.top += 4;
+            //*/
             summaryStyle.richText = true;
             summaryStyle.wordWrap = false;
             summaryStyle.clipping = TextClipping.Clip;

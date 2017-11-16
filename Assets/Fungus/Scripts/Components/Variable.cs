@@ -101,6 +101,14 @@ namespace Fungus
         /// </summary>
         public abstract void OnReset();
 
+        /**/ // SNOWFALL_FUNGUS_MOD
+        public virtual bool Compare(CompareOperator op, System.Object value) {
+            throw new System.InvalidOperationException(
+                "Compare() not implemented for Fungus variable type:\n"
+                + GetType().ToString()
+            );
+        }
+        //*/
         #endregion
     }
 
@@ -110,7 +118,33 @@ namespace Fungus
     public abstract class VariableBase<T> : Variable
     {
         [SerializeField] protected T value;
+        /*/ // SNOWFALL_FUNGUS_MOD
         public virtual T Value { get { return this.value; } set { this.value = value; } }
+        /*/
+        public virtual T Value {
+            get {
+                return this.value;
+            }
+            set {
+                this.value = value;
+                
+                if (Scope == VariableScope.Public) {
+                    FlowchartManager manager = FlowchartManager.GetManager(this);
+                    if (manager != null) {
+                        manager.SyncVariable(this);
+                    }
+                }
+            }
+        }
+        public T ValueNoSync {
+            get {
+                return this.value;
+            }
+            set {
+                this.value = value;
+            }
+        }
+        //*/
         
         protected T startValue;
 
@@ -121,7 +155,11 @@ namespace Fungus
         
         public override string ToString()
         {
+            /*/ // SNOWFALL_FUNGUS_MOD
             return Value.ToString();
+            /*/
+            return (Value != null) ? Value.ToString() : "null";
+            //*/
         }
         
         protected virtual void Start()

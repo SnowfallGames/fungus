@@ -995,7 +995,16 @@ namespace Fungus.EditorUtils
                     EventHandlerInfoAttribute info = EventHandlerEditor.GetEventHandlerInfo(block._EventHandler.GetType());
                     if (info != null)
                     {
+                        /*/ // SNOWFALL_FUNGUS_MOD
                         handlerLabel = "<" + info.EventHandlerName + "> ";
+                        /*/
+                        if (info.EventHandlerName == "Message Received") {
+                            handlerLabel = "message: " + block._EventHandler.GetSummary() + " ";
+                        }
+                        else {
+                            handlerLabel = "<" + info.EventHandlerName + "> ";
+                        }
+                        //*/
                     }
 
                     GUIStyle handlerStyle = new GUIStyle(EditorStyles.whiteLabel);
@@ -1323,7 +1332,19 @@ namespace Fungus.EditorUtils
                 var commandList = deleteBlock.CommandList;
                 for (int j = 0; j < commandList.Count; ++j)
                 {
+                    /*/ // SNOWFALL_FUNGUS_MOD
                     Undo.DestroyObjectImmediate(commandList[j]);
+                    /*/
+                    if (commandList[j] != null) {
+                        Undo.DestroyObjectImmediate(commandList[j]);
+                    }
+                    else {
+                        UnityEngine.Debug.LogWarning(
+                            "Null command in command list!\n"
+                            + "(This would be an exception which breaks the Fungus editor)"
+                        );
+                    }
+                    //*/
                 }
 
                 if (deleteBlock._EventHandler != null)
